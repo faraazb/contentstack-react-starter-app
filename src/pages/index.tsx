@@ -9,6 +9,7 @@ import { EntryProps } from "../typescript/components";
 import { Page } from "../typescript/pages";
 
 export default function Home({ entry }:{entry:({page, blogPost}:EntryProps)=> void}) {
+  // home page
   const lpTs = useLivePreviewCtx();
   const params = useParams();
   const entryUrl = params.page ? `/${params.page}` : "/";
