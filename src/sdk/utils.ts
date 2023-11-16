@@ -1,4 +1,4 @@
-import { Config, Region, LivePreview, Stack } from "contentstack";
+import { Config, Region, LivePreview, Stack, LivePreivewConfigWithPreviewToken } from "contentstack";
 const {
   REACT_APP_CONTENTSTACK_API_KEY,
   REACT_APP_CONTENTSTACK_DELIVERY_TOKEN,
@@ -44,7 +44,7 @@ const setRegion = (): Region => {
   return Region[region];
 };
 // set LivePreview config
-const setLivePreviewConfig = (): LivePreview => {
+const setLivePreviewConfig = (): LivePreview & LivePreivewConfigWithPreviewToken => {
   if (!isLpConfigValid())
     throw new Error("Your LP config is set to true. Please make you have set all required LP config in .env");
   return {
@@ -52,7 +52,7 @@ const setLivePreviewConfig = (): LivePreview => {
     preview_token: REACT_APP_CONTENTSTACK_PREVIEW_TOKEN as string,
     enable: REACT_APP_CONTENTSTACK_LIVE_PREVIEW === "true",
     host: REACT_APP_CONTENTSTACK_PREVIEW_HOST as string,
-  } as LivePreview;
+  };
 };
 // contentstack sdk initialization
 export const initializeContentStackSdk = (): Stack => {
