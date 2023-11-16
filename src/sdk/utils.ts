@@ -49,7 +49,7 @@ const setLivePreviewConfig = (): LivePreview => {
     throw new Error("Your LP config is set to true. Please make you have set all required LP config in .env");
   return {
     // management_token: REACT_APP_CONTENTSTACK_MANAGEMENT_TOKEN as string,
-    preview_token: REACT_APP_CONTENTSTACK_PREVIEW_TOKEN,
+    preview_token: REACT_APP_CONTENTSTACK_PREVIEW_TOKEN as string,
     enable: REACT_APP_CONTENTSTACK_LIVE_PREVIEW === "true",
     host: REACT_APP_CONTENTSTACK_PREVIEW_HOST as string,
   } as LivePreview;
