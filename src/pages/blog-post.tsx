@@ -37,10 +37,15 @@ export default function BlogPost({entry}:{entry:({page, blogPost}:EntryProps)=> 
 
   useEffect(() => {
     fetchData();
-    error && history("/404");
+    // error && history("/404");
   }, [blogId, lpTs, error]);
 
   const { post, banner } = getEntry;
+
+  if (!post || !banner) {
+    return <div>Loading</div>
+  }
+  
   return (
     <>
       {banner ? (

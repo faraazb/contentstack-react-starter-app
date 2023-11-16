@@ -26,54 +26,54 @@ export default function Layout({ entry }: { entry: EntryProps }) {
 
   const [error, setError] = useState(false);
 
-  async function fetchData() {
-    try {
-      const header = await getHeaderRes();
-      const footer = await getFooterRes();
-      const allEntry = await getAllEntries();
-      !header || (!footer && setError(true));
-      const navHeaderList = header.navigation_menu;
-      const navFooterList = footer.navigation.link;
-      if (allEntry.length !== header.navigation_menu.length) {
-        allEntry.forEach((entry) => {
-          const hFound = header.navigation_menu.find(
-            (navLink) => navLink.label === entry.title
-          );
-          if (!hFound) {
-            navHeaderList.push({
-              label: entry.title,
-              page_reference: [
-                { title: entry.title, url: entry.url, uid: entry.uid },
-              ],
-            });
-          }
-          const fFound = footer.navigation.link.find(
-            (link) => link.title === entry.title
-          );
-          if (!fFound) {
-            navFooterList.push({
-              title: entry.title,
-              href: entry.url
-            });
-          }
-        });
-      }
+  // async function fetchData() {
+  //   try {
+  //     const header = await getHeaderRes();
+  //     const footer = await getFooterRes();
+  //     const allEntry = await getAllEntries();
+  //     !header || (!footer && setError(true));
+  //     const navHeaderList = header.navigation_menu;
+  //     const navFooterList = footer.navigation.link;
+  //     if (allEntry.length !== header.navigation_menu.length) {
+  //       allEntry.forEach((entry) => {
+  //         const hFound = header.navigation_menu.find(
+  //           (navLink) => navLink.label === entry.title
+  //         );
+  //         if (!hFound) {
+  //           navHeaderList.push({
+  //             label: entry.title,
+  //             page_reference: [
+  //               { title: entry.title, url: entry.url, uid: entry.uid },
+  //             ],
+  //           });
+  //         }
+  //         const fFound = footer.navigation.link.find(
+  //           (link) => link.title === entry.title
+  //         );
+  //         if (!fFound) {
+  //           navFooterList.push({
+  //             title: entry.title,
+  //             href: entry.url
+  //           });
+  //         }
+  //       });
+  //     }
 
-      setLayout({
-        header: header,
-        footer: footer,
-        navHeaderList,
-        navFooterList,
-      });
-    } catch (error) {
-      setError(true);
-      console.error(error);
-    }
-  }
+  //     setLayout({
+  //       header: header,
+  //       footer: footer,
+  //       navHeaderList,
+  //       navFooterList,
+  //     });
+  //   } catch (error) {
+  //     setError(true);
+  //     console.error(error);
+  //   }
+  // }
 
-  useEffect(() => {
-    onEntryChange(fetchData);
-  }, []);
+  // useEffect(() => {
+  //   onEntryChange(fetchData);
+  // }, []);
 
   useEffect(() => {
     console.error("error...", error);
@@ -82,10 +82,10 @@ export default function Layout({ entry }: { entry: EntryProps }) {
 
   return (
     <div className="layout">
-      <Header header={getLayout.header} navMenu={getLayout.navHeaderList} />
+      {/* <Header header={getLayout.header} navMenu={getLayout.navHeaderList} /> */}
       <DevTools response={jsonObj} />
       <Outlet />
-      <Footer footer={getLayout.footer} navMenu={getLayout.navFooterList} />
+      {/* <Footer footer={getLayout.footer} navMenu={getLayout.navFooterList} /> */}
     </div>
   );
 }

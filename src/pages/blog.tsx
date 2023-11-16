@@ -38,6 +38,10 @@ export default function Blog({ entry }:{entry:({page, blogPost}:EntryProps)=> vo
     error && history("/404");
   }, [error, lpTs]);
 
+  if (!getEntry) {
+    return <div>Loading</div>
+  }
+
   return (
     <>
       {Object.keys(getEntry).length ? (
