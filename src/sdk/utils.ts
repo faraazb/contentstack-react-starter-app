@@ -13,8 +13,6 @@ const {
   REACT_APP_CONTENTSTACK_PREVIEW_HOST,
 } = process.env;
 
-console.log(REACT_APP_CONTENTSTACK_API_HOST, REACT_APP_CONTENTSTACK_PREVIEW_HOST)
-
 // basic env validation
 export const isBasicConfigValid = () => {
   return (
@@ -25,12 +23,19 @@ export const isBasicConfigValid = () => {
 };
 // Live preview config validation
 export const isLpConfigValid = () => {
-  return (
-    !!REACT_APP_CONTENTSTACK_LIVE_PREVIEW &&
-    // !!REACT_APP_CONTENTSTACK_MANAGEMENT_TOKEN &&
-    // !!REACT_APP_CONTENTSTACK_API_HOST &&
-    !!REACT_APP_CONTENTSTACK_APP_HOST
-  );
+  if (!!REACT_APP_CONTENTSTACK_LIVE_PREVIEW &&
+    !!REACT_APP_CONTENTSTACK_APP_HOST) {
+    if (
+      (!!REACT_APP_CONTENTSTACK_MANAGEMENT_TOKEN &&
+        !!REACT_APP_CONTENTSTACK_API_HOST) ||
+      (!!REACT_APP_CONTENTSTACK_PREVIEW_TOKEN &&
+        !!REACT_APP_CONTENTSTACK_PREVIEW_HOST)
+    ) {
+      return true;
+    }
+    return false;
+  }
+  return false;
 };
 // set region
 const setRegion = (): Region => {

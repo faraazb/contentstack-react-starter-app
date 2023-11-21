@@ -36,7 +36,6 @@ const Stack = initializeContentStackSdk();
 
 // set host url only for custom host or non prod base url's
 if (isValidCustomHostUrl(customHostBaseUrl)) {
-  console.log("is valid", customHostBaseUrl)
   Stack.setHost(customHostBaseUrl);
 }
 

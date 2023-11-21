@@ -31,7 +31,6 @@ export default function Home({ entry }:{entry:({page, blogPost}:EntryProps)=> vo
 
   useEffect(() => {
     fetchData();
-    console.log(error)
     error && history("/404");
   }, [entryUrl, lpTs, error]);
 
