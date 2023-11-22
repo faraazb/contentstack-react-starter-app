@@ -29,7 +29,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "env-cmd -f .env.production react-scripts build",
+    "serve": "serve -s build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -54,8 +55,10 @@
   "license": "MIT",
   "devDependencies": {
     "@types/react-dom": "^18.2.7",
+    "env-cmd": "^10.1.0",
     "eslint": "^8.41.0",
     "eslint-plugin-react": "^7.32.2",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "serve": "^14.2.1"
   }
 }
