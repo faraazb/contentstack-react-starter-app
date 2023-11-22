@@ -1,4 +1,11 @@
-import { Config, Region, LivePreview, Stack, LivePreivewConfigWithPreviewToken } from "contentstack";
+import {
+  Config,
+  Region,
+  LivePreview,
+  Stack,
+  LivePreivewConfigWithPreviewToken,
+  LivePreivewConfigWithManagementToken
+} from "contentstack";
 const {
   REACT_APP_CONTENTSTACK_API_KEY,
   REACT_APP_CONTENTSTACK_DELIVERY_TOKEN,
@@ -48,16 +55,32 @@ const setRegion = (): Region => {
   }
   return Region[region];
 };
+
+type setLivePrevieConfig = undefined | (LivePreview & (LivePreivewConfigWithPreviewToken | LivePreivewConfigWithManagementToken));
+
 // set LivePreview config
-const setLivePreviewConfig = (): LivePreview & LivePreivewConfigWithPreviewToken => {
+const setLivePreviewConfig = (): setLivePrevieConfig => {
   if (!isLpConfigValid())
     throw new Error("Your LP config is set to true. Please make you have set all required LP config in .env");
-  return {
-    // management_token: REACT_APP_CONTENTSTACK_MANAGEMENT_TOKEN as string,
-    preview_token: REACT_APP_CONTENTSTACK_PREVIEW_TOKEN as string,
-    enable: REACT_APP_CONTENTSTACK_LIVE_PREVIEW === "true",
-    host: REACT_APP_CONTENTSTACK_PREVIEW_HOST as string,
-  };
+  if (
+    !!REACT_APP_CONTENTSTACK_MANAGEMENT_TOKEN &&
+    !!REACT_APP_CONTENTSTACK_API_HOST) {
+    return {
+      enable: REACT_APP_CONTENTSTACK_LIVE_PREVIEW === "true",
+      management_token: REACT_APP_CONTENTSTACK_MANAGEMENT_TOKEN as string,
+      host: REACT_APP_CONTENTSTACK_API_HOST as string,
+    }
+  }
+  else if (
+    !!REACT_APP_CONTENTSTACK_PREVIEW_TOKEN &&
+    !!REACT_APP_CONTENTSTACK_PREVIEW_HOST) {
+    return {
+      enable: REACT_APP_CONTENTSTACK_LIVE_PREVIEW === "true",
+      preview_token: REACT_APP_CONTENTSTACK_PREVIEW_TOKEN as string,
+      host: REACT_APP_CONTENTSTACK_PREVIEW_HOST as string,
+    }
+  }
+  return;
 };
 // contentstack sdk initialization
 export const initializeContentStackSdk = (): Stack => {
