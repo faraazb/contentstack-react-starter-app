@@ -28,7 +28,7 @@ const {
   REACT_APP_CONTENTSTACK_PREVIEW_HOST
 } = process.env;
 const customHostBaseUrl = customHostUrl(
-  REACT_APP_CONTENTSTACK_PREVIEW_HOST as string
+  REACT_APP_CONTENTSTACK_PREVIEW_HOST ?? REACT_APP_CONTENTSTACK_API_HOST as string
 );
 
 // SDK initialization
